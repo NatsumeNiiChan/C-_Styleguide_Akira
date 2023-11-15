@@ -28,65 +28,66 @@ Nachbereitung:
 Pushen Sie den refaktorisierten Code zu Ihrer GitHub-Repository.
 */
 
-class GameUpdater {
-    public void CheckForUpdates(Game game) {
-        if (game.Status == "Running") {
+class GameUpdater 
+{
+    public void CheckForUpdates(Game game) 
+    {
+        if (game.Status == "Running") 
+        {
             throw new InvalidOperationException("Cannot update while game is running.");
         }
 
         // Simulation verschiedener Netzwerkstatus
         NetworkStatus networkStatus = game.CheckNetworkStatus();
-        if (networkStatus == NetworkStatus.Disconnected) {
-            throw new NoNetworkConnectionException("Please check your internet connection.");
-        } else if (networkStatus == NetworkStatus.Connected) {
+
+        if (networkStatus == NetworkStatus.Connected) 
+        {
             bool updatesAvailable = game.CheckForGameUpdates();
-            if (updatesAvailable) {
+            
+            if (updatesAvailable) 
+            {
                 game.DownloadGameUpdates();
-                // Überprüfung auf spezielle Ereignisse
-                if (game.HasSpecialEvents()) {
-                    game.PrepareForSpecialEvents();
-                }
                 game.ApplyUpdates();
                 Console.WriteLine("Game updated successfully.");
-            } else {
+            } 
+            
+            else 
+            {
                 Console.WriteLine("No updates available.");
             }
         }
     }
 }
 
-enum NetworkStatus {
+enum NetworkStatus 
+{
     Disconnected,
     Connected
 }
 
-class Game {
+class Game 
+{
     public string Status { get; set; }
     
-    public NetworkStatus CheckNetworkStatus() {
+    public NetworkStatus CheckNetworkStatus() 
+    {
         // Simuliert eine Netzwerkstatusprüfung
         return NetworkStatus.Connected;
     }
 
-    public bool CheckForGameUpdates() {
+    public bool CheckForGameUpdates() 
+    {
         // Simuliert eine Überprüfung auf Spielupdates
         return true;
     }
 
-    public void DownloadGameUpdates() {
+    public void DownloadGameUpdates() 
+    {
         // Simuliert das Herunterladen von Updates
     }
 
-    public bool HasSpecialEvents() {
-        // Simuliert die Überprüfung auf spezielle Ereignisse
-        return false;
-    }
-
-    public void PrepareForSpecialEvents() {
-        // Simuliert die Vorbereitung auf spezielle Ereignisse
-    }
-
-    public void ApplyUpdates() {
+    public void ApplyUpdates() 
+    {
         // Simuliert das Anwenden von Updates
     }
 }
